@@ -6,40 +6,37 @@
     <title>南京电动车潮流周末游攻略</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/framer-motion/dist/framer-motion.umd.js"></script>
     <style>
         :root {
-            --primary: #7f5af0;
-            --secondary: #2cb67d;
-            --accent: #ff8906;
-            --bg: #16161a;
-            --card-bg: #242629;
-            --text: #fffffe;
-            --muted: #a7a9be;
+            --primary-color: #5D3FD3;
+            --secondary-color: #239f98;
+            --accent-color: #FB8B24;
+            --text-color: #333333;
+            --bg-color: #F8F9FA;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
         }
         .banner {
-            background: linear-gradient(120deg, var(--primary) 0%, var(--accent) 100%);
-            color: #fff;
-            padding: 40px 0 24px 0;
+            background: linear-gradient(135deg, #5D3FD3 0%, #6A5ACD 100%);
+            color: white;
+            padding: 36px 0 18px 0;
             text-align: center;
-            position: relative;
         }
         .banner-title {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 900;
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .banner-desc {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             opacity: 0.95;
         }
         .banner-img {
@@ -47,90 +44,7 @@
             max-width: 420px;
             margin: 24px auto 0 auto;
             border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(127,90,240,0.18);
-        }
-        .card-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 18px;
-            justify-content: center;
-            margin: 0 auto;
-            max-width: 900px;
-        }
-        .card {
-            background: var(--card-bg);
-            border-radius: 18px;
-            box-shadow: 0 4px 16px rgba(44,182,125,0.10);
-            padding: 22px 18px 16px 18px;
-            min-width: 270px;
-            max-width: 340px;
-            flex: 1 1 270px;
-            position: relative;
-            transition: box-shadow 0.2s, transform 0.2s;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .card:hover {
-            box-shadow: 0 8px 32px rgba(127,90,240,0.18);
-            transform: translateY(-4px) scale(1.02);
-        }
-        .spot-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .spot-desc {
-            font-size: 1.05rem;
-            color: var(--muted);
-        }
-        .spot-address {
-            font-size: 0.98rem;
-            color: var(--accent);
-        }
-        .nav-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: #fff;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 12px;
-            padding: 12px 0;
-            margin-top: 8px;
-            width: 100%;
-            box-shadow: 0 2px 8px rgba(44,182,125,0.08);
-            transition: background 0.2s, box-shadow 0.2s;
-        }
-        .nav-btn:active {
-            background: var(--accent);
-        }
-        .card-actions {
-            display: flex;
-            gap: 16px;
-            margin-top: 8px;
-        }
-        .card-actions button {
-            background: none;
-            border: none;
-            color: var(--muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .card-actions button.liked, .card-actions button.collected {
-            color: var(--accent);
-        }
-        .ride-info {
-            color: var(--secondary);
-            font-size: 1rem;
-            margin: 0 0 8px 0;
-            text-align: center;
+            box-shadow: 0 8px 32px rgba(93,63,211,0.18);
         }
         .share-bar {
             display: flex;
@@ -139,7 +53,7 @@
             margin: 24px 0 0 0;
         }
         .share-bar button {
-            background: var(--primary);
+            background: var(--primary-color);
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -150,7 +64,123 @@
             transition: background 0.2s;
         }
         .share-bar button:hover {
-            background: var(--accent);
+            background: var(--accent-color);
+        }
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin: 32px 0 12px 0;
+            text-align: center;
+        }
+        .day-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 16px auto;
+            box-shadow: var(--card-shadow);
+            max-width: 700px;
+            position: relative;
+            overflow: hidden;
+        }
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 4px 0 0 4px;
+        }
+        .day-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 10px;
+        }
+        .spot-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            border: 1px solid #eaeaea;
+            transition: transform 0.2s ease;
+        }
+        .spot-card:active {
+            transform: scale(0.99);
+        }
+        .spot-title {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .spot-title i {
+            font-size: 1.2em;
+            margin-right: 8px;
+            color: var(--accent-color);
+        }
+        .spot-address {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            color: #666;
+            margin: 8px 0;
+        }
+        .spot-address i {
+            font-size: 1.1em;
+            margin-right: 8px;
+            color: #888;
+        }
+        .spot-desc {
+            margin: 12px 0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .food-title {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #e63946;
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        .food-title i {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--secondary-color);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        .nav-btn i {
+            margin-right: 4px;
+        }
+        .nav-btn:hover {
+            background: var(--primary-color);
+        }
+        .ride-info {
+            color: var(--secondary-color);
+            font-size: 1rem;
+            margin: 0 0 8px 0;
+            text-align: center;
         }
         .map-section {
             margin: 32px 0 0 0;
@@ -163,9 +193,9 @@
             box-shadow: 0 4px 16px rgba(44,182,125,0.10);
         }
         @media (max-width: 700px) {
-            .card-list { flex-direction: column; gap: 12px; }
-            .card { max-width: 100%; min-width: 0; }
-            .banner-title { font-size: 2rem; }
+            .day-card { padding: 10px 2px; }
+            .spot-title, .food-title { font-size: 1rem; }
+            .nav-btn { font-size: 0.95rem; padding: 10px 0; }
         }
     </style>
 </head>
@@ -180,144 +210,69 @@
         <button onclick="alert('已生成长图！')"><i class="fas fa-image"></i> 导出长图</button>
         <button onclick="alert('分享到微信/QQ/朋友圈')"><i class="fas fa-share-alt"></i> 社交分享</button>
     </div>
-    <h2 style="text-align:center;margin:32px 0 12px 0;font-size:1.4rem;color:var(--accent);">DAY 1 · 城市西线 · 生态与美食</h2>
-    <div class="card-list">
-        <div class="card">
-            <div class="spot-title"><i class="fas fa-utensils"></i> 鸡鸣汤包</div>
-            <div class="spot-address">鼓楼区中央路399号</div>
-            <div class="spot-desc">南京经典早餐，蟹黄汤包、牛肉汤包。</div>
-            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.79213,32.059206,鸡鸣汤包&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
-            <div class="card-actions">
-                <button title="点赞"><i class="fas fa-thumbs-up"></i></button>
-                <button title="收藏"><i class="fas fa-star"></i></button>
-                <button title="分享"><i class="fas fa-share-alt"></i></button>
-            </div>
-        </div>
+    <div class="section-title">DAY 1 · 城市西线 · 生态与美食</div>
+    <div class="day-card">
+        <img src="https://webapi.amap.com/staticmap?size=600*200&paths=118.79213,32.059206|118.703384,32.033359|118.841573,32.029038|118.749637,32.090161|118.748085,32.030576|118.746776,32.250263&key=0c72c97cf4cb7623daad0e2ef25a3188" alt="第一天骑行路线图" style="width:100%;border-radius:12px;margin-bottom:16px;">
+        <div class="food-title"><i class="fas fa-utensils"></i> 鸡鸣汤包</div>
+        <div class="spot-address"><i class="fas fa-map-marker-alt"></i>鼓楼区中央路399号</div>
+        <div class="spot-desc">南京经典早餐，蟹黄汤包、牛肉汤包。</div>
+        <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.79213,32.059206,鸡鸣汤包&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
         <div class="ride-info">骑行约26分钟（12.8公里）</div>
-        <div class="card">
-            <div class="spot-title"><i class="fas fa-water"></i> 江心洲</div>
-            <div class="spot-address">建邺区江心洲</div>
-            <div class="spot-desc">长江生态岛，骑行拍照休憩。</div>
-            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.703384,32.033359,江心洲&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
-            <div class="card-actions">
-                <button title="点赞"><i class="fas fa-thumbs-up"></i></button>
-                <button title="收藏"><i class="fas fa-star"></i></button>
-                <button title="分享"><i class="fas fa-share-alt"></i></button>
-            </div>
-        </div>
+        <div class="spot-title"><i class="fas fa-water"></i> 江心洲</div>
+        <div class="spot-address"><i class="fas fa-map-marker-alt"></i>建邺区江心洲</div>
+        <div class="spot-desc">长江生态岛，骑行拍照休憩。</div>
+        <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.703384,32.033359,江心洲&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
         <div class="ride-info">骑行约62分钟（15.5公里）</div>
-        <div class="card">
-            <div class="spot-title"><i class="fas fa-store-alt"></i> 南京农业大学夜市</div>
-            <div class="spot-address">玄武区卫岗1号</div>
-            <div class="spot-desc">学生美食，午餐时间人少。</div>
-            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.841573,32.029038,南京农业大学夜市&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
-            <div class="card-actions">
-                <button title="点赞"><i class="fas fa-thumbs-up"></i></button>
-                <button title="收藏"><i class="fas fa-star"></i></button>
-                <button title="分享"><i class="fas fa-share-alt"></i></button>
-            </div>
-        </div>
+        <div class="food-title"><i class="fas fa-store-alt"></i> 南京农业大学夜市</div>
+        <div class="spot-address"><i class="fas fa-map-marker-alt"></i>玄武区卫岗1号</div>
+        <div class="spot-desc">学生美食，午餐时间人少。</div>
+        <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.841573,32.029038,南京农业大学夜市&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
         <div class="ride-info">骑行约26分钟（12.9公里）</div>
-        <div class="card">
-            <div class="spot-title"><i class="fas fa-train"></i> 下关西火车</div>
-            <div class="spot-address">鼓楼区下关</div>
-            <div class="spot-desc">历史老火车站遗址，感受南京铁路文化。</div>
-            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.749637,32.090161,下关西火车&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
-            <div class="card-actions">
-                <button title="点赞"><i class="fas fa-thumbs-up"></i></button>
-                <button title="收藏"><i class="fas fa-star"></i></button>
-                <button title="分享"><i class="fas fa-share-alt"></i></button>
-            </div>
-        </div>
+        <div class="spot-title"><i class="fas fa-train"></i> 下关西火车</div>
+        <div class="spot-address"><i class="fas fa-map-marker-alt"></i>鼓楼区下关</div>
+        <div class="spot-desc">历史老火车站遗址，感受南京铁路文化。</div>
+        <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.749637,32.090161,下关西火车&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
         <div class="ride-info">骑行约16分钟（8.1公里）</div>
-        <div class="card">
-            <div class="spot-title"><i class="fas fa-market"></i> 茶南农贸市场</div>
-            <div class="spot-address">建邺区茶南路</div>
-            <div class="spot-desc">本地人常逛的农贸市场，体验南京烟火气。</div>
-            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.748085,32.030576,茶南农贸市场&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
-            <div class="card-actions">
-                <button title="点赞"><i class="fas fa-thumbs-up"></i></button>
-                <button title="收藏"><i class="fas fa-star"></i></button>
-                <button title="分享"><i class="fas fa-share-alt"></i></button>
-            </div>
-        </div>
+        <div class="food-title"><i class="fas fa-market"></i> 茶南农贸市场</div>
+        <div class="spot-address"><i class="fas fa-map-marker-alt"></i>建邺区茶南路</div>
+        <div class="spot-desc">本地人常逛的农贸市场，体验南京烟火气。</div>
+        <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.748085,32.030576,茶南农贸市场&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
         <div class="ride-info">骑行约40分钟（10.2公里）</div>
-        <div class="card">
-            <div class="spot-title"><i class="fas fa-ship"></i> 中山码头轮渡</div>
-            <div class="spot-address">六合区中山码头</div>
-            <div class="spot-desc">乘轮渡横渡长江，体验水上交通。</div>
-            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.746776,32.250263,中山码头轮渡&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
-            <div class="card-actions">
-                <button title="点赞"><i class="fas fa-thumbs-up"></i></button>
-                <button title="收藏"><i class="fas fa-star"></i></button>
-                <button title="分享"><i class="fas fa-share-alt"></i></button>
-            </div>
-        </div>
+        <div class="spot-title"><i class="fas fa-ship"></i> 中山码头轮渡</div>
+        <div class="spot-address"><i class="fas fa-map-marker-alt"></i>六合区中山码头</div>
+        <div class="spot-desc">乘轮渡横渡长江，体验水上交通。</div>
+        <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.746776,32.250263,中山码头轮渡&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
     </div>
-    <h2 style="text-align:center;margin:32px 0 12px 0;font-size:1.4rem;color:var(--accent);">DAY 2 · 城市东线 · 文化与夜市</h2>
-    <div class="card-list">
-        <div class="card">
-            <div class="spot-title"><i class="fas fa-tree"></i> 玄武湖</div>
-            <div class="spot-address">玄武区玄武巷1号</div>
-            <div class="spot-desc">南京著名湖泊，环湖骑行，风景优美。</div>
-            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.801541,32.072217,玄武湖&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
-            <div class="card-actions">
-                <button title="点赞"><i class="fas fa-thumbs-up"></i></button>
-                <button title="收藏"><i class="fas fa-star"></i></button>
-                <button title="分享"><i class="fas fa-share-alt"></i></button>
-            </div>
-        </div>
+    <div class="section-title">DAY 2 · 城市东线 · 文化与夜市</div>
+    <div class="day-card">
+        <img src="https://webapi.amap.com/staticmap?size=600*200&paths=118.801541,32.072217|118.796624,32.059344|118.812345,32.065432|118.787833,32.021582|118.796624,32.059344&key=0c72c97cf4cb7623daad0e2ef25a3188" alt="第二天骑行路线图" style="width:100%;border-radius:12px;margin-bottom:16px;">
+        <div class="spot-title"><i class="fas fa-tree"></i> 玄武湖</div>
+        <div class="spot-address"><i class="fas fa-map-marker-alt"></i>玄武区玄武巷1号</div>
+        <div class="spot-desc">南京著名湖泊，环湖骑行，风景优美。</div>
+        <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.801541,32.072217,玄武湖&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
         <div class="ride-info">骑行约27分钟（6.7公里）</div>
-        <div class="card">
-            <div class="spot-title"><i class="fas fa-mountain"></i> 玻璃栈道</div>
-            <div class="spot-address">南京市区</div>
-            <div class="spot-desc">高空玻璃栈道，俯瞰城市美景，体验刺激。</div>
-            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.796624,32.059344,玻璃栈道&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
-            <div class="card-actions">
-                <button title="点赞"><i class="fas fa-thumbs-up"></i></button>
-                <button title="收藏"><i class="fas fa-star"></i></button>
-                <button title="分享"><i class="fas fa-share-alt"></i></button>
-            </div>
-        </div>
+        <div class="spot-title"><i class="fas fa-mountain"></i> 玻璃栈道</div>
+        <div class="spot-address"><i class="fas fa-map-marker-alt"></i>南京市区</div>
+        <div class="spot-desc">高空玻璃栈道，俯瞰城市美景，体验刺激。</div>
+        <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.796624,32.059344,玻璃栈道&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
         <div class="ride-info">骑行约18分钟（4.5公里）</div>
-        <div class="card">
-            <div class="spot-title"><i class="fas fa-utensils"></i> 锁金村鸭血粉丝汤</div>
-            <div class="spot-address">锁金村</div>
-            <div class="spot-desc">南京特色小吃，鸭血粉丝汤鲜美可口。</div>
-            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.812345,32.065432,锁金村鸭血粉丝汤&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
-            <div class="card-actions">
-                <button title="点赞"><i class="fas fa-thumbs-up"></i></button>
-                <button title="收藏"><i class="fas fa-star"></i></button>
-                <button title="分享"><i class="fas fa-share-alt"></i></button>
-            </div>
-        </div>
+        <div class="food-title"><i class="fas fa-utensils"></i> 锁金村鸭血粉丝汤</div>
+        <div class="spot-address"><i class="fas fa-map-marker-alt"></i>锁金村</div>
+        <div class="spot-desc">南京特色小吃，鸭血粉丝汤鲜美可口。</div>
+        <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.812345,32.065432,锁金村鸭血粉丝汤&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
         <div class="ride-info">骑行约20分钟（5.2公里）</div>
-        <div class="card">
-            <div class="spot-title"><i class="fas fa-utensils"></i> 南京大排档</div>
-            <div class="spot-address">夫子庙/新街口等</div>
-            <div class="spot-desc">地道南京菜，盐水鸭、鸭血粉丝汤、糖醋排骨等。</div>
-            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.787833,32.021582,南京大牌档(夫子庙总店)&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
-            <div class="card-actions">
-                <button title="点赞"><i class="fas fa-thumbs-up"></i></button>
-                <button title="收藏"><i class="fas fa-star"></i></button>
-                <button title="分享"><i class="fas fa-share-alt"></i></button>
-            </div>
-        </div>
+        <div class="food-title"><i class="fas fa-utensils"></i> 南京大排档</div>
+        <div class="spot-address"><i class="fas fa-map-marker-alt"></i>夫子庙/新街口等</div>
+        <div class="spot-desc">地道南京菜，盐水鸭、鸭血粉丝汤、糖醋排骨等。</div>
+        <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.787833,32.021582,南京大牌档(夫子庙总店)&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
         <div class="ride-info">骑行约23分钟（5.6公里）</div>
-        <div class="card">
-            <div class="spot-title"><i class="fas fa-utensils"></i> 龙虾烧烤</div>
-            <div class="spot-address">夫子庙/湖南路/夜市</div>
-            <div class="spot-desc">南京夜宵必吃，烧烤+小龙虾，深夜美味。</div>
-            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.796624,32.059344,南京夜宵美食街&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
-            <div class="card-actions">
-                <button title="点赞"><i class="fas fa-thumbs-up"></i></button>
-                <button title="收藏"><i class="fas fa-star"></i></button>
-                <button title="分享"><i class="fas fa-share-alt"></i></button>
-            </div>
-        </div>
+        <div class="food-title"><i class="fas fa-utensils"></i> 龙虾烧烤</div>
+        <div class="spot-address"><i class="fas fa-map-marker-alt"></i>夫子庙/湖南路/夜市</div>
+        <div class="spot-desc">南京夜宵必吃，烧烤+小龙虾，深夜美味。</div>
+        <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.796624,32.059344,南京夜宵美食街&mode=ride" target="_blank"><i class="fas fa-location-arrow mr-2"></i>高德App导航</a>
     </div>
     <div class="map-section">
-        <h3 style="color:var(--primary);margin-bottom:12px;">全部景点分布</h3>
+        <h3 style="color:var(--primary-color);margin-bottom:12px;">全部景点分布</h3>
         <img src="https://webapi.amap.com/staticmap?size=600*300&markers=mid,0xFF0000,A:118.79213,32.059206;118.703384,32.033359;118.841573,32.029038;118.749637,32.090161;118.748085,32.030576;118.746776,32.250263;118.801541,32.072217;118.796624,32.059344;118.812345,32.065432;118.787833,32.021582&key=0c72c97cf4cb7623daad0e2ef25a3188" alt="景点分布图">
     </div>
 </body>
