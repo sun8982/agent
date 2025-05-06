@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>南京周末旅游攻略 - 电动车版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5D3FD3;
+            --secondary-color: #239f98;
+            --accent-color: #FB8B24;
+            --text-color: #333333;
+            --bg-color: #F8F9FA;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #5D3FD3 0%, #6A5ACD 100%);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        .day-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 16px auto;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 100%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 4px 0 0 4px;
+        }
+
+        .day-title {
+            font-size: clamp(24px, 5vw, 32px);
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 10px;
+        }
+
+        .spot-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            border: 1px solid #eaeaea;
+            transition: transform 0.2s ease;
+        }
+
+        .spot-card:active {
+            transform: scale(0.99);
+        }
+
+        .spot-title {
+            font-size: clamp(18px, 4vw, 22px);
+            font-weight: bold;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .spot-title i {
+            font-size: 1.2em;
+            margin-right: 8px;
+            color: var(--accent-color);
+        }
+
+        .spot-address {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: #666;
+            margin: 8px 0;
+        }
+
+        .spot-address i {
+            font-size: 1.1em;
+            margin-right: 8px;
+            color: #888;
+        }
+
+        .spot-desc {
+            margin: 12px 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .food-title {
+            font-size: clamp(18px, 4vw, 22px);
+            font-weight: bold;
+            color: #e63946;
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+
+        .food-title i {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--secondary-color);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .map-btn i {
+            margin-right: 4px;
+        }
+
+        .route-badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .tips-container {
+            background: #e8f4f8;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .tips-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tips-title i {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+
+        .tip-item {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tip-item::before {
+            content: '•';
+            position: absolute;
+            left: 6px;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        @media (hover: hover) {
+            .spot-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold">南京周末电动车旅游攻略</h1>
+            <p class="text-lg mt-2">美食与自然风光之旅 · 精心规划的顺路路线</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 pb-12">
+        <div class="tips-container">
+            <div class="tips-title">
+                <i class="fas fa-lightbulb"></i>
+                <span>电动车出行小贴士</span>
+            </div>
+            <div class="tip-item">南京多山路，请确保电动车电量充足</div>
+            <div class="tip-item">部分景区可能禁止电动车入内，可在景区外停放</div>
+            <div class="tip-item">雨天路滑，注意安全骑行</div>
+            <div class="tip-item">建议下载高德地图，方便导航</div>
+            <div class="tip-item">南京部分路段可能有电动车限行规定，请提前了解</div>
+        </div>
+
+        <!-- 第一天行程 -->
+        <div class="day-card">
+            <h2 class="day-title">
+                <i class="fas fa-calendar-day"></i>
+                第一天：玄武湖-明城墙-夫子庙
+            </h2>
+            <div class="route-badge">
+                <i class="fas fa-route mr-1"></i>
+                行程约18公里
+            </div>
+
+            <!-- 早餐 -->
+            <div class="spot-card">
+                <div class="food-title">
+                    <i class="fas fa-utensils"></i>
+                    早餐：鸡鸣汤包
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：鼓楼区中央路399号(近南京博物院)</span>
+                </div>
+                <p class="spot-desc">南京著名的早餐选择，蟹黄汤包和牛肉汤包都是招牌，汤汁丰富，皮薄馅大。开始一天的旅程前，先填饱肚子！</p>
+                <a href="amapuri://poi/detail?poiname=鸡鸣汤包(总店)" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 景点1 -->
+            <div class="spot-card">
+                <div class="spot-title">
+                    <i class="fas fa-tree"></i>
+                    玄武湖公园
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：玄武区玄武巷1号</span>
+                </div>
+                <p class="spot-desc">玄武湖是中国最大的皇家园林湖泊，有着"金陵明珠"的美誉。湖中有五个小岛，岛上树木葱郁，长桥卧波，亭台楼阁点缀其间。沿湖骑行，风景优美。</p>
+                <p class="spot-desc"><strong>推荐：</strong>绕湖一圈约5公里，可在湖边欣赏风景，拍照留念。</p>
+                <a href="amapuri://poi/detail?poiname=玄武湖公园" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 午餐 -->
+            <div class="spot-card">
+                <div class="food-title">
+                    <i class="fas fa-utensils"></i>
+                    午餐：莲湖糕团店
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：玄武区环湖路2号玄武湖公园内</span>
+                </div>
+                <p class="spot-desc">位于玄武湖畔的老字号小吃店，桂花夹心小元宵、艾草青团、豆沙锅饼都是不错的选择。可以买些小吃边走边吃。</p>
+                <a href="amapuri://poi/detail?poiname=莲湖糕团店(玄武湖店)" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 景点2 -->
+            <div class="spot-card">
+                <div class="spot-title">
+                    <i class="fas fa-monument"></i>
+                    明城墙
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：玄武区玄武门城墙景区</span>
+                </div>
+                <p class="spot-desc">南京明城墙是中国现存规模最大、保存最完整的城墙。从玄武湖出发，可以骑行至玄武门登城墙，俯瞰南京城区风光。</p>
+                <p class="spot-desc"><strong>提示：</strong>城墙不能骑行，需要将电动车停在城墙下的停车点，步行上城墙游览。</p>
+                <a href="amapuri://poi/detail?poiname=南京明城墙-玄武门段" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 下午茶 -->
+            <div class="spot-card">
+                <div class="food-title">
+                    <i class="fas fa-coffee"></i>
+                    下午茶：老鸭粉丝汤
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：秦淮区夫子庙秦淮河畔</span>
+                </div>
+                <p class="spot-desc">游览城墙后，可以骑车前往夫子庙附近，品尝一碗正宗的老鸭粉丝汤，汤鲜肉嫩，是南京的特色小吃之一。</p>
+                <a href="amapuri://poi/detail?poiname=魏记老鸭粉丝汤(夫子庙店)" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 景点3 -->
+            <div class="spot-card">
+                <div class="spot-title">
+                    <i class="fas fa-archway"></i>
+                    夫子庙-秦淮河
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：秦淮区贡院街夫子庙</span>
+                </div>
+                <p class="spot-desc">夫子庙是南京的文化地标，秦淮河畔的风光秀丽。傍晚可以在这里漫步，感受灯火阑珊的秦淮风情。</p>
+                <p class="spot-desc"><strong>推荐：</strong>夫子庙商圈游览，可以品尝各类小吃，饱览秦淮河风光。</p>
+                <a href="amapuri://poi/detail?poiname=夫子庙" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 晚餐 -->
+            <div class="spot-card">
+                <div class="food-title">
+                    <i class="fas fa-utensils"></i>
+                    晚餐：南京大牌档
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：秦淮区贡院街贡院巷1号</span>
+                </div>
+                <p class="spot-desc">在夫子庙可以选择南京大牌档享用晚餐，这里有最地道的南京菜，如盐水鸭、鸭血粉丝汤、糖醋排骨等。</p>
+                <a href="amapuri://poi/detail?poiname=南京大牌档(夫子庙总店)" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+        </div>
+
+        <!-- 第二天行程 -->
+        <div class="day-card">
+            <h2 class="day-title">
+                <i class="fas fa-calendar-day"></i>
+                第二天：紫金山-栖霞山-老门东
+            </h2>
+            <div class="route-badge">
+                <i class="fas fa-route mr-1"></i>
+                行程约22公里
+            </div>
+
+            <!-- 早餐 -->
+            <div class="spot-card">
+                <div class="food-title">
+                    <i class="fas fa-utensils"></i>
+                    早餐：朱记煮干丝
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：秦淮区中华路465号</span>
+                </div>
+                <p class="spot-desc">南京有名的早餐店，煮干丝是招牌，豆腐制成的干丝加上高汤煮制，口感鲜嫩。配上一碗馄饨，开启一天的行程。</p>
+                <a href="amapuri://poi/detail?poiname=朱记煮干丝(总店)" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 景点1 -->
+            <div class="spot-card">
+                <div class="spot-title">
+                    <i class="fas fa-mountain"></i>
+                    紫金山
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：玄武区紫金山山顶路7号</span>
+                </div>
+                <p class="spot-desc">紫金山又名钟山，是南京最著名的山脉之一，山上风景秀丽，可以骑电动车沿山路前行，欣赏沿途风景。</p>
+                <p class="spot-desc"><strong>推荐：</strong>明孝陵、灵谷寺、中山植物园都位于紫金山，可以选择1-2个地方游览。</p>
+                <p class="spot-desc"><strong>提示：</strong>紫金山有较多上坡路段，请确保电动车电量充足。</p>
+                <a href="amapuri://poi/detail?poiname=紫金山" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 午餐 -->
+            <div class="spot-card">
+                <div class="food-title">
+                    <i class="fas fa-utensils"></i>
+                    午餐：马府山珍
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：玄武区环陵路8号</span>
+                </div>
+                <p class="spot-desc">位于明孝陵附近的餐厅，以淮扬菜为主，松鼠鳜鱼、蒋有记扬州炒饭等都很有特色。</p>
+                <a href="amapuri://poi/detail?poiname=马府山珍(明孝陵店)" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 景点2 -->
+            <div class="spot-card">
+                <div class="spot-title">
+                    <i class="fas fa-leaf"></i>
+                    栖霞山
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：栖霞区栖霞街8号</span>
+                </div>
+                <p class="spot-desc">从紫金山出发，骑行约7公里可到达栖霞山。栖霞山以秋季红叶闻名，山中古刹栖霞寺历史悠久，环境清幽。</p>
+                <p class="spot-desc"><strong>推荐：</strong>游览栖霞寺，欣赏山间景色，享受片刻宁静。</p>
+                <a href="amapuri://poi/detail?poiname=栖霞山" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 下午茶 -->
+            <div class="spot-card">
+                <div class="food-title">
+                    <i class="fas fa-coffee"></i>
+                    下午茶：栖霞寺素饼
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：栖霞区栖霞街8号栖霞寺内</span>
+                </div>
+                <p class="spot-desc">栖霞寺的素饼是当地特色小吃，酥脆可口，香甜不腻。游览结束后可以购买尝尝。</p>
+                <a href="amapuri://poi/detail?poiname=栖霞寺" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 景点3 -->
+            <div class="spot-card">
+                <div class="spot-title">
+                    <i class="fas fa-store"></i>
+                    老门东历史街区
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：秦淮区白下路老门东历史街区</span>
+                </div>
+                <p class="spot-desc">从栖霞山回城，可以前往老门东历史街区。这里保留了南京明清时期的街巷格局和建筑风貌，是体验南京传统文化的好地方。</p>
+                <p class="spot-desc"><strong>推荐：</strong>漫步街区，品尝小吃，购买特色纪念品。</p>
+                <a href="amapuri://poi/detail?poiname=老门东历史街区" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+
+            <!-- 晚餐 -->
+            <div class="spot-card">
+                <div class="food-title">
+                    <i class="fas fa-utensils"></i>
+                    晚餐：奇芳阁
+                </div>
+                <div class="spot-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>地址：秦淮区贡院西街18号</span>
+                </div>
+                <p class="spot-desc">百年老店，晚餐可以在这里品尝地道的金陵菜，如南京盐水鸭、干菜烧肉、什锦菜等，结束美好的南京之旅。</p>
+                <a href="amapuri://poi/detail?poiname=奇芳阁(夫子庙店)" class="map-btn">
+                    <i class="fas fa-map"></i>
+                    导航前往
+                </a>
+            </div>
+        </div>
+
+        <div class="tips-container">
+            <div class="tips-title">
+                <i class="fas fa-heart"></i>
+                <span>南京特色美食推荐</span>
+            </div>
+            <div class="tip-item">盐水鸭：南京最著名的特色菜，鸭肉鲜嫩多汁</div>
+            <div class="tip-item">鸭血粉丝汤：南京人早餐必备，汤鲜味美</div>
+            <div class="tip-item">牛肉锅贴：外酥里嫩，牛肉鲜香</div>
+            <div class="tip-item">桂花糖芋苗：甜而不腻，秋季特色小吃</div>
+            <div class="tip-item">糖粥藕：南京传统甜品，滋补美味</div>
+            <div class="tip-item">南京小面：面条细韧，汤头鲜美</div>
+        </div>
+    </div>
+
+    <script>
+        // 添加滚动动画
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.spot-card, .day-card, .tips-container').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html> 
