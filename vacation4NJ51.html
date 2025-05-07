@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>南京五一电动车骑行五日游攻略</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5A7CA7;
+            --secondary-color: #B7C9E2;
+            --accent-color: #F7B267;
+            --bg-color: #F6F6F6;
+            --card-bg: #FAFAFA;
+            --text-color: #222831;
+            --subtext-color: #5A7CA7;
+            --border-color: #E0E0E0;
+            --card-shadow: 0 4px 12px rgba(90, 124, 167, 0.06);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
+            padding: 24px 0 12px 0;
+            text-align: center;
+        }
+        .tips-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            padding: 18px 18px 12px 18px;
+            margin: 18px auto 24px auto;
+            max-width: 700px;
+            border: 1.5px solid var(--border-color);
+        }
+        .tips-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tips-list {
+            color: var(--subtext-color);
+            font-size: 1rem;
+            margin-left: 8px;
+        }
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 16px auto;
+            box-shadow: var(--card-shadow);
+            max-width: 700px;
+            position: relative;
+            overflow: hidden;
+            border: 1.5px solid var(--border-color);
+        }
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 4px 0 0 4px;
+        }
+        .day-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-left: 10px;
+        }
+        .spot-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            border: 1.5px solid var(--border-color);
+        }
+        .spot-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .spot-title i {
+            font-size: 1.2em;
+            margin-right: 8px;
+            color: var(--accent-color);
+        }
+        .spot-address {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            color: var(--subtext-color);
+            margin: 8px 0;
+        }
+        .spot-address i {
+            font-size: 1.1em;
+            margin-right: 8px;
+            color: var(--border-color);
+        }
+        .spot-desc {
+            margin: 12px 0 0 0;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-color);
+        }
+        .food-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        .food-title i {
+            font-size: 1.2em;
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-top: 8px;
+            transition: background 0.2s;
+            border: 2px solid var(--border-color);
+        }
+        .nav-btn i {
+            margin-right: 4px;
+            color: var(--accent-color);
+        }
+        .nav-btn:hover {
+            background: var(--accent-color);
+            color: #fff;
+        }
+        .ride-info {
+            color: var(--primary-color);
+            font-size: 1rem;
+            margin: 0 0 8px 0;
+            text-align: center;
+        }
+        .map-section {
+            margin: 32px 0 0 0;
+            text-align: center;
+        }
+        .map-section img {
+            width: 100%;
+            max-width: 700px;
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(90, 124, 167, 0.08);
+            border: 2px solid var(--border-color);
+            background: var(--bg-color);
+        }
+        @media (max-width: 700px) {
+            .day-card { padding: 10px 2px; }
+            .spot-title, .food-title { font-size: 1rem; }
+            .nav-btn { font-size: 0.95rem; padding: 10px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1 class="text-2xl md:text-3xl font-bold">南京五一电动车骑行五日游攻略</h1>
+        <p class="text-lg mt-2">美食 · 自然风光 · 顺路骑行 · 五天畅游南京</p>
+    </div>
+    <div class="tips-card">
+        <div class="tips-title"><i class="fas fa-lightbulb"></i>出行小贴士</div>
+        <ul class="tips-list">
+            <li>电动车请提前充满电，部分景区需在外停放</li>
+            <li>热门景点需提前预约门票，携带身份证</li>
+            <li>骑行注意安全，佩戴头盔，遵守交通规则</li>
+            <li>如遇雨天，注意防滑，合理调整行程</li>
+            <li>建议下载高德地图App，方便导航</li>
+        </ul>
+        <a class="nav-btn" style="margin-top:14px;display:inline-flex;" href="https://uri.amap.com/navigation?to=118.792,32.022,夫子庙&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>回去休息</a>
+    </div>
+    <!-- Day 1 -->
+    <div class="day-card">
+        <div class="day-title"><i class="fas fa-calendar-day"></i>第一天：锁金村-鸡鸣寺-总统府-老门东小吃街-玄武湖-南京大排档</div>
+        <img src="https://web-framwork-sh.oss-cn-hangzhou.aliyuncs.com/NJ_travel_imgs/day1_overview.jpg" alt="第一天路线概览" style="width:100%;border-radius:12px;margin-bottom:16px;">
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 早餐：锁金村鸭血粉丝汤</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>锁金村</div>
+            <div class="spot-desc">南京特色小吃，汤鲜味美，开启元气一天。推荐搭配小笼包或锅贴，店铺门口常有本地人排队，氛围地道。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：30分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.812345,32.065432,锁金村鸭血粉丝汤&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约10分钟（2.5公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-pagelines"></i> 鸡鸣寺</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>玄武区鸡鸣寺路1号</div>
+            <div class="spot-desc">南京最美赏樱地，古寺幽静，春日必打卡。寺庙门口的樱花大道是拍照圣地。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.808,32.064,鸡鸣寺&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约8分钟（2.1公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-landmark"></i> 总统府</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>玄武区长江路292号</div>
+            <div class="spot-desc">中国近代史重要地标，民国风情建筑群。推荐在府门口和民国风建筑区拍照。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.792,32.048,总统府&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约12分钟（3.2公里）</div>
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 午餐：老门东小吃街</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>秦淮区箍桶巷</div>
+            <div class="spot-desc">南京传统美食聚集地，推荐鸭血粉丝汤、牛肉锅贴、盐水鸭等。街区氛围热闹，适合边走边吃。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：40分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.792,32.018,老门东小吃街&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约15分钟（4.5公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-tree"></i> 玄武湖（日落）</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>玄武区玄武巷1号</div>
+            <div class="spot-desc">南京著名湖泊，环湖骑行，风景优美。傍晚时分湖面霞光与城市天际线交相辉映，是拍摄日落的绝佳地点。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：1.5小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.801541,32.072217,玄武湖&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约18分钟（5.2公里）</div>
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 晚餐：南京大排档</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>夫子庙/新街口等</div>
+            <div class="spot-desc">地道南京菜，盐水鸭、鸭血粉丝汤、糖醋排骨等。环境复古，适合夜晚聚餐。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：40分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.787833,32.021582,南京大牌档(夫子庙总店)&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+    </div>
+    <!-- Day 2 -->
+    <div class="day-card">
+        <div class="day-title"><i class="fas fa-calendar-day"></i>第二天：科巷美食市集-秦淮河-夫子庙-南京大牌档-玻璃栈道-狮子桥美食街</div>
+        <img src="https://web-framwork-sh.oss-cn-hangzhou.aliyuncs.com/NJ_travel_imgs/day2_overview.jpg" alt="第二天路线概览" style="width:100%;border-radius:12px;margin-bottom:16px;">
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 早餐：科巷美食市集</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>秦淮区科巷</div>
+            <div class="spot-desc">南京本地人最爱的早餐市集，各类小吃丰富，推荐牛肉锅贴、豆腐脑、烧饼油条。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：30分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.792,32.038,科巷美食市集&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约10分钟（2.5公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-water"></i> 秦淮河</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>秦淮区秦淮河畔</div>
+            <div class="spot-desc">南京母亲河，夜游灯会、古色古香。推荐在夫子庙附近拍照，夜景尤佳。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.792,32.028,秦淮河&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约6分钟（1.8公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-archway"></i> 夫子庙</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>秦淮区贡院街夫子庙</div>
+            <div class="spot-desc">南京文化地标，秦淮风情，夜市美食。推荐在贡院街、乌衣巷拍照。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.792,32.022,夫子庙&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约5分钟（1.2公里）</div>
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 午餐：南京大牌档（夫子庙店）</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>秦淮区贡院街</div>
+            <div class="spot-desc">地道南京菜，盐水鸭、鸭血粉丝汤、糖醋排骨等。环境复古，适合午餐休息。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：40分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.787833,32.021582,南京大牌档(夫子庙总店)&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约20分钟（6.2公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-mountain"></i> 玻璃栈道</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>南京市区</div>
+            <div class="spot-desc">高空玻璃栈道，俯瞰城市美景，体验刺激。推荐在栈道尽头拍摄城市全景。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.796624,32.059344,玻璃栈道&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约15分钟（4.5公里）</div>
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 晚餐：狮子桥美食街</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>鼓楼区狮子桥</div>
+            <div class="spot-desc">南京著名夜市，推荐小龙虾、烤串、鸭血粉丝汤等。夜晚氛围热闹，是南京夜生活的代表。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：40分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.779,32.066,狮子桥美食街&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+    </div>
+    <!-- Day 3 -->
+    <div class="day-card">
+        <div class="day-title"><i class="fas fa-calendar-day"></i>第三天：南京农业大学夜市-南京博物院-西来顺牛肉面-牛首山-江心洲日落-鱼嘴湿地日落-科巷美食市集-回酒店</div>
+        <img src="https://web-framwork-sh.oss-cn-hangzhou.aliyuncs.com/NJ_travel_imgs/day3_overview.jpg" alt="第三天路线概览" style="width:100%;border-radius:12px;margin-bottom:16px;">
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 早餐：南京农业大学夜市</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>玄武区卫岗1号</div>
+            <div class="spot-desc">学生美食，早市丰富，推荐豆浆油条、煎饼果子、包子等，氛围青春活力。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：30分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.841573,32.029038,南京农业大学夜市&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约20分钟（6.5公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-university"></i> 南京博物院</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>玄武区中山东路321号</div>
+            <div class="spot-desc">中国三大博物馆之一，馆藏丰富。推荐在馆前广场和展厅内拍照。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：1.5小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.812,32.048,南京博物院&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约20分钟（7.2公里）</div>
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 午餐：西来顺牛肉面</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>建邺区江东中路</div>
+            <div class="spot-desc">南京有名的牛肉面馆，牛肉鲜嫩，汤头浓郁，分量十足。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：40分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.733,32.018,西来顺牛肉面&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约25分钟（8.5公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-mountain"></i> 牛首山</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>江宁区牛首大道18号</div>
+            <div class="spot-desc">南京南部著名佛教胜地，山水环绕，风景秀丽。推荐在山顶俯瞰南京城景。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：1.5小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.800,31.950,牛首山&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约30分钟（10.2公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-water"></i> 江心洲（日落）</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>建邺区江心洲</div>
+            <div class="spot-desc">傍晚时分前往江心洲，长江生态岛，骑行拍照休憩。江边日落极美，适合拍摄长江风光和剪影。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.703384,32.033359,江心洲&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约10分钟（3.5公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-leaf"></i> 鱼嘴湿地公园（日落）</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>建邺区鱼嘴路</div>
+            <div class="spot-desc">傍晚时分前往鱼嘴湿地，长江与秦淮新河交汇处，湿地风光，观鸟胜地。观景台是拍摄日落的绝佳位置。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.670,32.012,鱼嘴湿地公园&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约20分钟（7.2公里）</div>
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 晚餐：科巷美食市集</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>秦淮区科巷</div>
+            <div class="spot-desc">夜市小吃丰富，推荐牛肉锅贴、鸭血粉丝汤、糖芋苗等，适合夜宵。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：30分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.792,32.038,科巷美食市集&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约10分钟（3.2公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-hotel"></i> 回酒店（夫子庙）</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>秦淮区夫子庙</div>
+            <div class="spot-desc">一天行程结束，返回夫子庙酒店休息。</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.792,32.022,夫子庙&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+    </div>
+    <!-- Day 4 -->
+    <div class="day-card">
+        <div class="day-title"><i class="fas fa-calendar-day"></i>第四天：茶南农贸市场-下关西火车-中山码头轮渡-南京大牌档-狮子桥美食街-老门东小吃街</div>
+        <img src="https://web-framwork-sh.oss-cn-hangzhou.aliyuncs.com/NJ_travel_imgs/day4_overview.jpg" alt="第四天路线概览" style="width:100%;border-radius:12px;margin-bottom:16px;">
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 早餐：茶南农贸市场</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>建邺区茶南路</div>
+            <div class="spot-desc">本地人常逛的农贸市场，推荐豆腐脑、油条、烧饼等南京传统早餐。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：30分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.748085,32.030576,茶南农贸市场&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约22分钟（7.2公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-train"></i> 下关西火车</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>鼓楼区下关</div>
+            <div class="spot-desc">历史老火车站遗址，感受南京铁路文化。推荐在站台遗迹拍照。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.749637,32.090161,下关西火车&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约16分钟（5.1公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-ship"></i> 中山码头轮渡</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>六合区中山码头</div>
+            <div class="spot-desc">乘轮渡横渡长江，体验水上交通。推荐在江边拍摄轮渡和长江风光。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议游览：30分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.746776,32.250263,中山码头轮渡&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约20分钟（6.2公里）</div>
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 午餐：南京大牌档（湖南路店）</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>鼓楼区湖南路</div>
+            <div class="spot-desc">地道南京菜，推荐盐水鸭、牛肉锅贴、桂花糖芋苗等。环境复古，适合午餐休息。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：40分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.783,32.066,南京大牌档(湖南路店)&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约10分钟（3.2公里）</div>
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 晚餐：狮子桥美食街</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>鼓楼区狮子桥</div>
+            <div class="spot-desc">南京著名夜市，推荐小龙虾、烤串、鸭血粉丝汤等。夜晚氛围热闹，是南京夜生活的代表。</div>
+            <div style="color:var(--primary-color);font-size:0.98rem;margin:6px 0 0 0;">建议用餐：40分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.779,32.066,狮子桥美食街&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+    </div>
+    <!-- Day 5 -->
+    <div class="day-card">
+        <div class="day-title"><i class="fas fa-calendar-day"></i>第五天：南京博物馆-紫金山-中山陵-颐和路-老门东小吃街-夫子庙夜市</div>
+        <img src="https://web-framwork-sh.oss-cn-hangzhou.aliyuncs.com/NJ_travel_imgs/day5_overview.jpg" alt="第五天路线概览" style="width:100%;border-radius:12px;margin-bottom:16px;">
+        <div class="spot-card">
+            <div class="food-title"><i class="fas fa-utensils"></i> 早餐：南京大排档</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>夫子庙/新街口等</div>
+            <div class="spot-desc">地道南京菜，盐水鸭、鸭血粉丝汤、糖醋排骨等。</div>
+            <div style="color:#239f98;font-size:0.98rem;margin:6px 0 0 0;">建议用餐：40分钟</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.787833,32.021582,南京大牌档(夫子庙总店)&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约25分钟（8.2公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-mountain"></i> 紫金山</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>玄武区紫金山山顶路7号</div>
+            <div class="spot-desc">南京最著名的山脉之一，山上风景秀丽。</div>
+            <div style="color:#239f98;font-size:0.98rem;margin:6px 0 0 0;">建议游览：1.5小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.796624,32.059344,紫金山&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约12分钟（3.6公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-monument"></i> 中山陵</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>玄武区石象路7号</div>
+            <div class="spot-desc">中国近代伟人孙中山先生陵寝，庄严肃穆。</div>
+            <div style="color:#239f98;font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.852,32.064,中山陵&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约30分钟（10.5公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-mountain"></i> 牛首山</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>江宁区牛首大道18号</div>
+            <div class="spot-desc">南京南部著名佛教胜地，山水环绕，风景秀丽。</div>
+            <div style="color:#239f98;font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.800,31.950,牛首山&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约18分钟（5.2公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-road"></i> 颐和路</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>鼓楼区颐和路</div>
+            <div class="spot-desc">南京最美街区，民国风情，梧桐成荫，适合拍照漫步。</div>
+            <div style="color:#239f98;font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.769,32.070,颐和路&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+        <div class="ride-info">骑行约20分钟（6.8公里）</div>
+        <div class="spot-card">
+            <div class="spot-title"><i class="fas fa-university"></i> 南京博物馆</div>
+            <div class="spot-address"><i class="fas fa-map-marker-alt"></i>玄武区中山东路321号</div>
+            <div class="spot-desc">中国三大博物馆之一，馆藏丰富。</div>
+            <div style="color:#239f98;font-size:0.98rem;margin:6px 0 0 0;">建议游览：1小时</div>
+            <a class="nav-btn" href="https://uri.amap.com/navigation?to=118.812,32.048,南京博物馆&mode=ride" target="_blank"><i class="fas fa-location-arrow"></i>高德App导航</a>
+        </div>
+    </div>
+    <div class="map-section">
+        <h3 style="color:var(--primary-color);margin-bottom:12px;">全部景点分布</h3>
+        <img src="https://web-framwork-sh.oss-cn-hangzhou.aliyuncs.com/NJ_travel_imgs/nanjing_spots_overview.jpg" alt="景点分布图" style="display:block;margin:0 auto;border-radius:18px;max-width:700px;width:100%;border:2px solid #eaeaea;box-sizing:border-box;">
+    </div>
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        const days = document.querySelectorAll('.day-card');
+        days.forEach((card, idx) => {
+            const title = card.querySelector('.day-title');
+            const content = Array.from(card.children).filter(e => !e.classList.contains('day-title'));
+            // 包裹内容div
+            let contentDiv = document.createElement('div');
+            contentDiv.className = 'day-content';
+            content.forEach(node => contentDiv.appendChild(node));
+            card.appendChild(contentDiv);
+            // 默认第一天展开，其余收起
+            if(idx === 0) {
+                contentDiv.style.display = '';
+            } else {
+                contentDiv.style.display = 'none';
+            }
+            // 点击标题切换
+            title.style.cursor = 'pointer';
+            title.innerHTML += '<span style="font-size:1.1em;margin-left:8px;">' + (idx === 0 ? '▼' : '▶') + '</span>';
+            title.addEventListener('click', function() {
+                const isOpen = contentDiv.style.display !== 'none';
+                contentDiv.style.display = isOpen ? 'none' : '';
+                // 切换箭头
+                title.querySelector('span').textContent = isOpen ? '▶' : '▼';
+            });
+        });
+    });
+    </script>
+</body>
+</html> 
